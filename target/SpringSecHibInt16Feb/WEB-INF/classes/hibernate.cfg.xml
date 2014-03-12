@@ -7,6 +7,7 @@
 	<session-factory>
 		<mapping class="com.spring.hibernate.model.User" />
 		<mapping class="com.spring.hibernate.model.Role" />
+		<mapping class="com.spring.hibernate.model.Department" />
 		<mapping class="com.spring.hibernate.model.UserRole" />
 	</session-factory>
 </hibernate-configuration>

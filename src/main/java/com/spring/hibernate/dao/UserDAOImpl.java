@@ -60,7 +60,7 @@ public class UserDAOImpl implements UserDAO{
 		User result = (User)((Criteria) q).list().get(0);
 		*/try{
 		User result=(User) this.sessionFactory.getCurrentSession().createQuery("from user where userId= :userId").setParameter("userId", userId).list();
-		result.setActive(0);
+		result.setActive(false);
 		this.sessionFactory.getCurrentSession().update(result);}
 		catch(Exception ex){
 			logger.info("else returning UserDAOImpl:deactivateUser"+ex.toString());
@@ -77,7 +77,7 @@ public class UserDAOImpl implements UserDAO{
 		try{
 			User result=(User) this.sessionFactory.getCurrentSession().createQuery("from user where userId= :userId").setParameter("userId", userId).list();
 		
-		result.setActive(1);
+		result.setActive(true);
 		this.sessionFactory.getCurrentSession().update(result);}
 	catch(Exception ex){
 		logger.info("else returning UserDAOImpl:activateUser"+ex.toString());

@@ -74,9 +74,13 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
 	<bean id="userDao" class="com.spring.hibernate.dao.UserDAOImpl"></bean>
 	<bean id="roleDao" class="com.spring.hibernate.dao.RoleDAOImpl"></bean>
+	<bean id="utilDao" class="com.spring.hibernate.dao.UtilDaoImpl"></bean>
+	
 	<bean id="userService" class="com.spring.hibernate.service.UserServiceImpl"></bean>
 	<bean id="roleService" class="com.spring.hibernate.service.RoleServiceImpl"></bean>
 	<bean id="adminService" class="com.spring.hibernate.service.AdminServiceImpl"></bean>
+	<bean id="utilService" class="com.spring.hibernate.service.utilServiceImpl"></bean>
+	
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
 

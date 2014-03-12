@@ -2,51 +2,56 @@ package com.spring.hibernate.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
 @Entity
-@Table(name="DEPARTMENT")
+@Table(name="department")
 public class Department {
 	
 	@Id
-	@GeneratedValue
-	@Column(name="DEPTID")
-	private int deptId;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id")
+	private int id;
 	
-	@Column(name="DEPTNAME")
-	private String deptName;
+	@Column(name="name")
+	private String name;
 	
-	@OneToMany(mappedBy="department")
-	private Set<User>  user;
+	@OneToMany(mappedBy="department", fetch=FetchType.LAZY, cascade={CascadeType.MERGE})
+	private Set<User>  users;
 
-	public int getDeptId() {
-		return deptId;
+	//getters and setters
+	public int getId() {
+		return id;
 	}
 
-	public void setDeptId(int deptId) {
-		this.deptId = deptId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public String getDeptName() {
-		return deptName;
+	public String getName() {
+		return name;
 	}
 
-	public void setDeptName(String deptName) {
-		this.deptName = deptName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Set<User> getUser() {
-		return user;
+	public Set<User> getUsers() {
+		return users;
 	}
 
-	public void setUser(Set<User> user) {
-		this.user = user;
+	public void setUsers(Set<User> users) {
+		this.users = users;
 	}
+
 
 }

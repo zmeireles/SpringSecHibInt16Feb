@@ -1,64 +1,82 @@
 package com.spring.hibernate.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-
-@Entity(name="user")
+@Entity(name = "user")
 public class User {
 
 	@Id
-	@Column(name="USERID")
-	@GeneratedValue
+	@Column(name = "USERID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int userId;
 
-	@Column(name="USERNAME")
+	@Column(name = "USERNAME")
 	private String userName;
-	
-	@Column(name="PASSWORD")
+
+	@Column(name = "PASSWORD")
 	private String password;
-	
-	@Column(name="FIRSTNAME")
+
+	@Column(name = "FIRSTNAME")
 	private String firstName;
-	
-	@Column(name="LASTNAME")
+
+	@Column(name = "LASTNAME")
 	private String lastName;
-	
-	@Column(name="ADDRESS")
+
+	@Column(name = "ADDRESS")
 	private String address;
-	
-	@Column(name="CONTACTNU")
+
+	@Column(name = "CONTACTNU")
 	private String contactNu;
-	
-	@Column(name="EMAILID")
+
+	@Column(name = "EMAILID")
 	private String emailId;
-	
-	@Column(name="LASTLOGINDT")
-	private Date lastLogin; 
-	
-	@Column(name="SUPERVISOR")
+
+	@Column(name = "LASTLOGINDT")
+	private Date lastLogin;
+
+	@Column(name = "SUPERVISOR")
 	private int supId;
-	
-	@Column(name="ACTIVE")
-	private int active;
-	
-	@OneToOne(mappedBy="user", cascade=CascadeType.ALL)
-	private UserRole userRole;
-	
-			
-	public UserRole getUserRole() {
-		return userRole;
+
+	@Column(name = "ACTIVE")
+	private boolean active;
+
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	private Set<UserRole> roles = new HashSet<UserRole>();
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "department_id")
+	private Department department;
+
+	// getters and setters
+
+	public Set<UserRole> getRoles() {
+		return roles;
 	}
 
-	public void setUserRole(UserRole userRole) {
-		this.userRole = userRole;
+	public void setRoles(Set<UserRole> roles) {
+		this.roles = roles;
+	}
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
 
 	public int getUserId() {
@@ -141,20 +159,18 @@ public class User {
 		this.supId = supId;
 	}
 
-	
-	public int getActive() {
+	public boolean getActive() {
 		return active;
 	}
 
-	public void setActive(int active) {
+	public void setActive(boolean active) {
 		this.active = active;
 	}
 
 	public User(int userId, String userName, String password, String firstName,
 			String lastName, String address, String contactNu, String emailId,
-			  Date lastLogin, int supId,
-			int active, UserRole role) {
-		
+			Date lastLogin, int supId, boolean active) {
+
 		this.userId = userId;
 		this.userName = userName;
 		this.password = password;
@@ -166,12 +182,31 @@ public class User {
 		this.lastLogin = lastLogin;
 		this.supId = supId;
 		this.active = active;
-		this.userRole = role;
 	}
 
 	public User() {
-		
+		super();
 	}
 	
+	/**
+	 * returns the ROLE_ADMIN if it has this role, ROLE_USER if it has this role 
+	 * but not the admin role, and another role if neither of the previous are found
+	 * @return
+	 */
+	public Role obtainTopRole(){
+		
+		for(UserRole uRole:this.roles){
+			if(uRole.getRole().getName().equals("ROLE_ADMIN"))
+				return uRole.getRole();
+		}
+		for(UserRole uRole:this.roles){
+			if(uRole.getRole().getName().equals("ROLE_ISER"))
+				return uRole.getRole();
+		}
+		for(UserRole uRole:this.roles)
+			return uRole.getRole();
+		
+		return null;
+	}
 
 }

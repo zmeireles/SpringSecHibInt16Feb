@@ -52,7 +52,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 					accountNonExpired,
 					credentialsNonExpired,
 					accountNonLocked,
-					getAuthorities(domainUser.getUserRole().getRoleid()));
+					getAuthorities(domainUser.obtainTopRole().toIntRole()));
 			
 		} catch (Exception e) {
 			logger.info("inside catch CustomUserDetailsService:loadUserByUsername"+e.toString());

@@ -17,53 +17,53 @@
 
 
 	<dependencies>
-<!--  project dependencies added-->
-<dependency>
-    	<groupId>org.springframework.security</groupId>
-    	<artifactId>spring-security-taglibs</artifactId>
-    	<version>${spring.version}</version>
-    	<type>jar</type>
-    	<scope>compile</scope>
-    </dependency>
-<dependency>
-	    <groupId>javax.servlet</groupId>
-	    <artifactId>jstl</artifactId>
-	    <version>1.1.2</version>
-	</dependency>
-	<dependency>
-		<groupId>taglibs</groupId>
-		<artifactId>standard</artifactId>
-		<version>1.1.2</version>
-	</dependency>
-	
-<dependency>
-		    <groupId>org.aspectj</groupId>
-		    <artifactId>aspectjrt</artifactId>
-		    <version>1.6.10</version>
-	</dependency>
+		<!-- project dependencies added -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${spring.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>1.1.2</version>
+		</dependency>
 
-	<dependency>
-		<groupId>org.aspectj</groupId>
-		<artifactId>aspectjweaver</artifactId>
-		<version>1.6.10</version>
-	</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.6.10</version>
+		</dependency>
 
-<dependency>
-    	<groupId>org.springframework</groupId>
-    	<artifactId>spring-oxm</artifactId>
-    	<version>${spring.version}</version>
-    	<type>jar</type>
-    	<scope>compile</scope>
-    </dependency>
-    <dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-aspects</artifactId>
-		<version>${spring.version}</version>
-		<type>jar</type>
-		<scope>compile</scope>
-	</dependency>
-    
-<!--  project dependencies added ends-->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.6.10</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+			<version>${spring.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${spring.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- project dependencies added ends -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -185,7 +185,7 @@
 					<artifactId>jmxri</artifactId>
 				</exclusion>
 			</exclusions>
-			
+
 		</dependency>
 
 
@@ -281,28 +281,28 @@
 				</configuration>
 			</plugin>
 
- <plugin>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <version>2.5</version>
-                        <executions>
-                                <execution>
-                                        <id>copy-meta-inf</id>
-                                        <phase>compile</phase>
-                                        <goals>
-                                                <goal>copy-resources</goal>
-                                        </goals>
-                                        <configuration>
-                                        <warSourceDirectory>${basedir}/webapp</warSourceDirectory>
-                                                <outputDirectory>${project.build.outputDirectory}/META-INF</outputDirectory>
-                                                <resources>
-                                                        <resource>
-                                                                <directory>${project.basedir}/src/main/java/META-INF</directory>
-                                                        </resource>
-                                                </resources>
-                                        </configuration>
-                                </execution>
-                        </executions>
-                </plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.5</version>
+				<executions>
+					<execution>
+						<id>copy-meta-inf</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<warSourceDirectory>${basedir}/webapp</warSourceDirectory>
+							<outputDirectory>${project.build.outputDirectory}/META-INF</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.basedir}/src/main/java/META-INF</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 
 		</plugins>
 	</build>
