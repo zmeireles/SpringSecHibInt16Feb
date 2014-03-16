@@ -3,7 +3,7 @@ package com.spring.hibernate.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Query;
+import org.hibernate.Query;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
@@ -17,6 +17,7 @@ import com.spring.hibernate.model.User;
 public class UserDAOImpl implements UserDAO{
 
 	private static final Logger logger = Logger.getLogger(UserDAOImpl.class);
+	
 	@Autowired
 	private SessionFactory sessionFactory;
 	
@@ -52,6 +53,17 @@ public class UserDAOImpl implements UserDAO{
     }
 
 	
+	@Override
+	public User getUser(int id) {
+		return (User) this.sessionFactory.getCurrentSession().get(User.class, id);
+	}
+
+	@Override
+	public void updateUser(User user) {
+		System.out.println("updateUser: user id:"+user.getUserId());
+		this.sessionFactory.getCurrentSession().update(user);
+	}
+
 	@Override
 	public void deactivateUser(int userId) {
 		/*Session session = this.sessionFactory.getCurrentSession();
@@ -112,6 +124,14 @@ public class UserDAOImpl implements UserDAO{
 	@Override
 	public User findUserByUserId(int userId) {
 		return (User)this.sessionFactory.getCurrentSession().createQuery("from user where userId =" + userId).list().get(0);
+		
+	}
+
+	@Override
+	public void deleteUser(int id) {
+		Query deleteItemsQuery = this.sessionFactory.getCurrentSession().createQuery("DELETE user WHERE id =:id");
+	    deleteItemsQuery.setParameter("id", id);
+	    deleteItemsQuery.executeUpdate();
 		
 	}
 	

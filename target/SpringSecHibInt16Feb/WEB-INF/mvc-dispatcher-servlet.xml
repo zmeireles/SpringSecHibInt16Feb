@@ -75,11 +75,13 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 	<bean id="userDao" class="com.spring.hibernate.dao.UserDAOImpl"></bean>
 	<bean id="roleDao" class="com.spring.hibernate.dao.RoleDAOImpl"></bean>
 	<bean id="utilDao" class="com.spring.hibernate.dao.UtilDaoImpl"></bean>
+	<bean id="departmentDao" class="com.spring.hibernate.dao.DepartmentDaoImpl"></bean>
 	
 	<bean id="userService" class="com.spring.hibernate.service.UserServiceImpl"></bean>
 	<bean id="roleService" class="com.spring.hibernate.service.RoleServiceImpl"></bean>
 	<bean id="adminService" class="com.spring.hibernate.service.AdminServiceImpl"></bean>
-	<bean id="utilService" class="com.spring.hibernate.service.utilServiceImpl"></bean>
+	<bean id="utilService" class="com.spring.hibernate.service.UtilServiceImpl"></bean>
+	<bean id="departmentService" class="com.spring.hibernate.service.DepartmentServiceImpl"></bean>
 	
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
@@ -90,6 +92,17 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 	</bean>
 	
 	<mvc:resources mapping="/resources/**" location="/resources/css/" />
-
 	<mvc:annotation-driven />
+<!-- 
+	<mvc:annotation-driven conversion-service="conversionService" />
+	
+	<bean id="conversionService"
+	    class="org.springframework.context.support.FormattingConversionServiceFactoryBean">
+	    <property name="converters">
+	        <set>
+	            <bean class="com.spring.hibernate.converter.DepartmentIdToDepartment"></bean>
+	        </set>
+	    </property>
+	</bean>
+ -->
 </beans>

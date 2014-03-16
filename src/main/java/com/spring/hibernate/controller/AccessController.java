@@ -34,6 +34,11 @@ public class AccessController {
 		return "role";
 	}
 	
+//	@RequestMapping(value = "/department")
+// 	public String loadDepartmentsDashboard() {		
+//		return "department/departmentsHome";
+//	}
+	
 	@RequestMapping("/login")
 	public String login(Model model, @RequestParam(required=false) String message) {
 		logger.info("inside AccessController:login");

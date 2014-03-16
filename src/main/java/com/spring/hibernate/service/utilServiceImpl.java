@@ -5,7 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.hibernate.dao.UtilDao;
 
-public class utilServiceImpl implements UtilService{
+public class UtilServiceImpl implements UtilService{
 
 	@Autowired
 	private UtilDao utilDao;

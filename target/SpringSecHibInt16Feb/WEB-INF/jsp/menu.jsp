@@ -15,6 +15,7 @@
 <c:url value="/" var="homeUrl"/>
 <c:url value="user" var="userUrl"/>
 <c:url value="role" var="roleUrl"/>
+<c:url value="departments" var="departmentsUrl"/>
 <c:url value="admin" var="adminUrl"/>
 <c:url value="logout" var="logoutUrl"/>
 
@@ -25,6 +26,7 @@
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<li><a href="${roleUrl}">Role</a></li>
 		</sec:authorize>
+		<li><a href="${departmentsUrl}">Departments</a></li>
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<li><a href="${adminUrl}">Admin</a></li>
 		</sec:authorize>

@@ -18,6 +18,11 @@ public interface UserDAO {
 	public List<User> findUserByEmailId(String emailId);
 	public User findUserByUserId(int userId);
 	
+	public void updateUser(User user);
+	
+	public User getUser(int id);
+	public void deleteUser(int id);
+	
 	//public String deleteUser(int userId);
 	
 	//public List<User> getUserViewEdit(int userId);

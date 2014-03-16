@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<jsp:include page="../menu.jsp" />
 		<center>
 		<core:if test="${!empty userList}">
 			<table border="1">
@@ -22,11 +22,14 @@
 					<td>${user.firstName}</td>
 					<td>${user.lastName}</td>
 					<td>${user.address}</td>
+					<td>${user.department.name}</td>
+					<td><a href="editUser?id=${user.userId}">Edit</a></td>
+					<td><a href="deleteUser?id=${user.userId}">Delete</a></td>
 				</tr>
 				</core:forEach>
 				
 				<tr>
-					<td>
+					<td colspan="8">
 						<a href="userRegistration">Create New user</a>
 					</td>
 				</tr>
