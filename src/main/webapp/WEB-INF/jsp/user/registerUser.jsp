@@ -80,38 +80,7 @@
 							<spring:message code="label.department"></spring:message>
 						</form:label></td>
 					<td>
-					<form:select path="department" items="${departments}" itemLabel="name" itemValue="id"/></td>
-					<!-- 
-					<form:select path="department">
-							<core:forEach items="${departments}" var="dep">
-								<core:choose>
-									<core:when test="${dep.id eq user.department.id}">
-										<form:option value="${dep}" selected="selected"
-											label="${dep.name}" />
-									</core:when>
-									<core:otherwise>
-										<form:option value="${dep}" label="${dep.name}" />
-									</core:otherwise>
-								</core:choose>
-							</core:forEach>
-						</form:select></td>
-					 -->
-					<!-- 
-						<td><spring:bind path="department">
-							<select name="department">
-								<core:forEach items="${departments}" var="department">
-									<core:choose>
-										<core:when test="${department.id eq user.department.id}">
-											<option value="${department}" selected="selected">${department.name}</option>
-										</core:when>
-										<core:otherwise>
-											<option value="${department}">${department.name}</option>
-										</core:otherwise>
-									</core:choose>
-								</core:forEach>
-							</select>
-						</spring:bind></td>
-						 -->
+					<form:select path="department.id" items="${departments}" itemLabel="name" itemValue="id"/></td>
 				</tr>
 
 				<%-- 

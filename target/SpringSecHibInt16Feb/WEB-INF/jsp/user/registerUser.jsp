@@ -80,7 +80,7 @@
 							<spring:message code="label.department"></spring:message>
 						</form:label></td>
 					<td>
-					<form:select path="department" items="${departments}" itemLabel="name" itemValue="id"/></td>
+					<form:select path="department.id" items="${departments}" itemLabel="name" itemValue="id"/></td>
 					<!-- 
 					<form:select path="department">
 							<core:forEach items="${departments}" var="dep">
