@@ -54,7 +54,7 @@ public class AdminController {
 			public String restUser(@ModelAttribute(value="user") User user,BindingResult result){
 				
 				adminService.resetPassword(user.getUserName(),user.getPassword());
-				return "redirect:/admin/adminUserView";
+				return "redirect:/adminUserView";
 			
 			}
 			
@@ -80,7 +80,7 @@ public class AdminController {
 				
 				// We need to make sure the Default Values are Managed and Setter Methods of the Model Class Called to provide the values ..
 				adminService.activateUser(userId);
-				return "redirect:/admin/adminUserView";
+				return "redirect:/adminUserView";
 			}
 			
 			@RequestMapping(value="/deactivateUser",method=RequestMethod.POST)
@@ -90,7 +90,7 @@ public class AdminController {
 				
 				// We need to make sure the Default Values are Managed and Setter Methods of the Model Class Called to provide the values ..
 				adminService.deactivateUser(userId);
-				return "redirect:/admin/adminUserView";
+				return "redirect:/adminUserView";
 			}
 	
 			@RequestMapping(value="/adminUserView",method=RequestMethod.GET)
