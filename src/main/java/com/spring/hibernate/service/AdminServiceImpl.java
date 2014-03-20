@@ -20,6 +20,7 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	
+	
 	@Transactional
 	@Override
 	public List<User> findUserByEmailId(String emailId) {
