@@ -16,6 +16,7 @@ import com.spring.hibernate.model.User;
 import com.spring.hibernate.service.AdminService;
 import com.spring.hibernate.service.UserService;
 
+/*Changed- Lokesh*/
 @Controller
 public class AdminController {
 			
