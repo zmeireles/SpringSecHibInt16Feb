@@ -59,7 +59,7 @@ public class UserDAOImpl implements UserDAO{
 		q.setParameter("UserId", userId);
 		User result = (User)((Criteria) q).list().get(0);
 		*/try{
-		User result=(User) this.sessionFactory.getCurrentSession().createQuery("from user where userId= :userId").setParameter("userId", userId).list();
+		User result=(User) this.sessionFactory.getCurrentSession().createQuery("from user where userId= :userId").setParameter("userId", userId).list().get(0);
 		result.setActive(0);
 		this.sessionFactory.getCurrentSession().update(result);}
 		catch(Exception ex){
@@ -75,7 +75,7 @@ public class UserDAOImpl implements UserDAO{
 		User result = (User)q.list().get(0);*/
 		
 		try{
-			User result=(User) this.sessionFactory.getCurrentSession().createQuery("from user where userId= :userId").setParameter("userId", userId).list();
+			User result=(User) this.sessionFactory.getCurrentSession().createQuery("from user where userId= :userId").setParameter("userId", userId).list().get(0);
 		
 		result.setActive(1);
 		this.sessionFactory.getCurrentSession().update(result);}
@@ -93,12 +93,12 @@ public class UserDAOImpl implements UserDAO{
 		User result = (User)q.list().get(0);*/
 		
 		try{
-			User result=(User) this.sessionFactory.getCurrentSession().createQuery("from user where userName= :UserName").setParameter("userName", userName).list();
+			User result=(User) this.sessionFactory.getCurrentSession().createQuery("from user where userName= :UserName").setParameter("UserName", userName).list().get(0);
 		
 		result.setPassword(password);
 		this.sessionFactory.getCurrentSession().update(result);
 		}catch(Exception ex){
-			logger.info("else returning UserDAOImpl:resetPassword"+ex.toString());
+			logger.info("else returning UserDAOImpl:resetPassword"+ ex.getMessage());
 		}
 	}
 
