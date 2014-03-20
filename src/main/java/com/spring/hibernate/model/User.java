@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 
 @Entity(name="user")
@@ -24,6 +25,9 @@ public class User {
 	
 	@Column(name="PASSWORD")
 	private String password;
+	
+	@Transient
+	private String confirmPassword;
 	
 	@Column(name="FIRSTNAME")
 	private String firstName;
@@ -85,6 +89,15 @@ public class User {
 		this.password = password;
 	}
 
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
+	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -167,11 +180,13 @@ public class User {
 		this.supId = supId;
 		this.active = active;
 		this.userRole = role;
+		
 	}
 
 	public User() {
 		
 	}
+
 	
 
 }
