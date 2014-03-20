@@ -34,6 +34,9 @@
 		</table>
 		</fieldset>
 <center>
+		<core:if test="${empty userList}">
+			No record available to action, please search records! 
+		</core:if>
 		<core:if test="${!empty userList}">
 			<table border="1">
 				<th>
@@ -68,16 +71,16 @@
 
 <script>
 function activeRecord(id){
-    var f=document.form;
-    f.method="post";
-    f.action='activateUser?userId'+id;
+	var f=document.forms[0];
+    f.method='post';
+    f.action='activateUser?userId='+id;
     f.submit();
 }
 
 function deactiveRecord(id){
-	alert(id);
-    var f=document.form;
-    f.method="post";
+	
+    var f=document.forms[0];
+    f.method='post';
     f.action='deactivateUser?userId='+id;
     f.submit();
 }
