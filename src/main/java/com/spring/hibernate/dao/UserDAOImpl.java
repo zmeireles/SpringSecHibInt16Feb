@@ -1,15 +1,18 @@
 package com.spring.hibernate.dao;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
-
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.authentication.PasswordEncoderParser;
 
 import com.spring.hibernate.model.Role;
 import com.spring.hibernate.model.User;
@@ -37,7 +40,7 @@ public class UserDAOImpl implements UserDAO{
 		logger.info("inside UserDAOImpl:getUser"+USERNAME);
         List<User> userList = new ArrayList();        
         String hql = "from user u where u.userName = :userName";
-     
+        System.out.println(hql + USERNAME);
         userList = sessionFactory.getCurrentSession().createQuery(hql).setParameter("userName", USERNAME).list();
      
         logger.info("userList UserDAOImpl:getUser"+userList.size());
@@ -71,7 +74,7 @@ public class UserDAOImpl implements UserDAO{
 		q.setParameter("UserId", userId);
 		User result = (User)((Criteria) q).list().get(0);
 		*/try{
-		User result=(User) this.sessionFactory.getCurrentSession().createQuery("from user where userId= :userId").setParameter("userId", userId).list();
+			User result=(User) this.sessionFactory.getCurrentSession().createQuery("from user where userId= :userId").setParameter("userId", userId).list().get(0);
 		result.setActive(false);
 		this.sessionFactory.getCurrentSession().update(result);}
 		catch(Exception ex){
@@ -87,7 +90,7 @@ public class UserDAOImpl implements UserDAO{
 		User result = (User)q.list().get(0);*/
 		
 		try{
-			User result=(User) this.sessionFactory.getCurrentSession().createQuery("from user where userId= :userId").setParameter("userId", userId).list();
+			User result=(User) this.sessionFactory.getCurrentSession().createQuery("from user where userId= :userId").setParameter("userId", userId).list().get(0);
 		
 		result.setActive(true);
 		this.sessionFactory.getCurrentSession().update(result);}
@@ -105,9 +108,9 @@ public class UserDAOImpl implements UserDAO{
 		User result = (User)q.list().get(0);*/
 		
 		try{
-			User result=(User) this.sessionFactory.getCurrentSession().createQuery("from user where userName= :UserName").setParameter("userName", userName).list();
+			User result=(User) this.sessionFactory.getCurrentSession().createQuery("from user where userName= :UserName").setParameter("UserName", userName).list().get(0);
 		
-		result.setPassword(password);
+		result.setPassword(md5(password));
 		this.sessionFactory.getCurrentSession().update(result);
 		}catch(Exception ex){
 			logger.info("else returning UserDAOImpl:resetPassword"+ex.toString());
@@ -136,4 +139,28 @@ public class UserDAOImpl implements UserDAO{
 	}
 	
 
+	 public  String md5(String input) {
+         
+	        String md5 = null;
+	         
+	        if(null == input) return null;
+	         
+	        try {
+	             
+	        //Create MessageDigest object for MD5
+	        MessageDigest digest = MessageDigest.getInstance("MD5");
+	         
+	        //Update input string in message digest
+	        digest.update(input.getBytes(), 0, input.length());
+	 
+	        //Converts message digest value in base 16 (hex) 
+	        md5 = new BigInteger(1, digest.digest()).toString(16);
+	 
+	        } catch (NoSuchAlgorithmException e) {
+	 
+	            e.printStackTrace();
+	        }
+	        return md5;
+	    }
+	
 }
