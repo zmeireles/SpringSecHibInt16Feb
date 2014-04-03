@@ -25,6 +25,7 @@ public class AdminController {
 	
 			@RequestMapping(value="/adminService",method=RequestMethod.GET)
 			public String loadSearchUser(Model map,@RequestParam (value="message",required=false)  String msg){
+				
 				logger.info("inside AdminController:adminService:GET");
 				
 				map.addAttribute("message", msg);
