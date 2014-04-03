@@ -1,5 +1,6 @@
 package com.spring.hibernate.controller;
 
+import org.apache.log4j.Logger;
 import org.jboss.logging.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,19 +19,19 @@ import com.spring.hibernate.service.UserService;
 
 @Controller
 public class AdminController {
-			
+	private static final Logger logger = Logger.getLogger(AdminController.class);
 			@Autowired
 			private AdminService adminService;
 	
 			@RequestMapping(value="/adminService",method=RequestMethod.GET)
-			public String loadSearchUser(Model map){
+			public String loadSearchUser(Model map,@RequestParam ("message")  String msg){
+				logger.info("inside AdminController:adminService:GET");
 				
-				map.addAttribute("Msg", "This is used to Create User Loading Page");
+				map.addAttribute("message", msg);
 				map.addAttribute("searchUser", new SearchUser());
+				map.addAttribute("userList", adminService.getUserView());
 				
-				//Load The Department From The Table will be displayed in UI in combo box
-				//Load The Project From The Table will be displayed in UI in combo box
-				//Load The Location From The Table will be displayed in UI in combo box
+				logger.info("outside AdminController:adminService:GET");
 				
 				return "admin/searchUser";
 			
@@ -38,64 +39,83 @@ public class AdminController {
 
 			@RequestMapping(value="/resetUser",method=RequestMethod.GET)
 			public ModelAndView restUser(@RequestParam ("userId")  int userId){
+				logger.info("inside AdminController:restUser:GET");
 				
 				ModelAndView mav = new ModelAndView();
 				mav.setViewName("admin/resetUser");
 				mav.addObject("user", adminService.findUserByUserId(userId));
-				//Load The Department From The Table will be displayed in UI in combo box
-				//Load The Project From The Table will be displayed in UI in combo box
-				//Load The Location From The Table will be displayed in UI in combo box
+
+				logger.info("outside AdminController:restUser:GET");
 				
 				return mav;
 			
 			}
 
 			@RequestMapping(value="/resetUser",method=RequestMethod.POST)
-			public String restUser(@ModelAttribute(value="user") User user,BindingResult result){
+			public String resetUser(Model model,@ModelAttribute(value="user") User user,BindingResult result){
+				logger.info("inside AdminController:resetUser:POST");
 				
 				adminService.resetPassword(user.getUserName(),user.getPassword());
-				return "redirect:/admin/adminUserView";
+				model.addAttribute("message", "Password reset successfully");
+				
+				logger.info("outside AdminController:resetUser:POST");
+
+				return "redirect:/adminService";
 			
 			}
 			
 			@RequestMapping(value="/adminService",method=RequestMethod.POST)
 			public ModelAndView performUserSearch(@ModelAttribute(value="searchUser") SearchUser searchUser,BindingResult result){
-				
-				//map.addAttribute("Msg", "This is used to Create User Loading Page");
-				//map.addAttribute("user", adminService.searchUser(userId));
+				logger.info("inside AdminController:performUserSearch:adminService:POST");
+
 				ModelAndView mav = new ModelAndView();
-				//Load The Department From The Table will be displayed in UI in combo box
-				//Load The Project From The Table will be displayed in UI in combo box
-				//Load The Location From The Table will be displayed in UI in combo box
-				//;
 				mav.setViewName("admin/searchUser");
 				mav.addObject("userList", adminService.findUserByEmailId(searchUser.getEmailId()));
+				mav.addObject("message", "Please see below search result");
+				
+				logger.info("outside AdminController:performUserSearch:adminService:POST");
+
 				return mav;
 			}
 			
 			@RequestMapping(value="/activateUser",method=RequestMethod.POST)
-			public String activeUser(@RequestParam ("userId")  int userId){
+			public String activeUser(Model model,@RequestParam ("userId")  int userId){
+				logger.info("inside AdminController:activeUser:POST");
 				
 				// Calling the Service Layer ...-> DAO layer ..
 				
 				// We need to make sure the Default Values are Managed and Setter Methods of the Model Class Called to provide the values ..
 				adminService.activateUser(userId);
-				return "redirect:/admin/adminUserView";
+				model.addAttribute("message", "User activated successfully");
+
+				logger.info("outside AdminController:activeUser:POST");
+
+				return "redirect:/adminService";
 			}
 			
 			@RequestMapping(value="/deactivateUser",method=RequestMethod.POST)
-			public String deactiveUser(@RequestParam ("userId")  int userId){
+			public String deactiveUser(Model model,@RequestParam ("userId")  int userId){
+				logger.info("inside AdminController:deactiveUser:POST");
 				
 				// Calling the Service Layer ...-> DAO layer ..
 				
 				// We need to make sure the Default Values are Managed and Setter Methods of the Model Class Called to provide the values ..
 				adminService.deactivateUser(userId);
-				return "redirect:/admin/adminUserView";
+				model.addAttribute("message", "User deactivated successfully");
+				
+				logger.info("outside AdminController:deactiveUser:POST");
+
+				return "redirect:/adminService";
 			}
 	
 			@RequestMapping(value="/adminUserView",method=RequestMethod.GET)
 			public String viewUser(Model map){
+				logger.info("inside AdminController:adminUserView:GET");
+				
 				map.addAttribute("userList", adminService.getUserView());
+				
+				logger.info("outside AdminController:adminUserView:GET");
+				
 				return "admin/adminUserView";
 			}
 			
