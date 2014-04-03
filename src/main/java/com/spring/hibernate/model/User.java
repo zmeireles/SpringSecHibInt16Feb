@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @Entity(name = "user")
 public class User {
@@ -30,6 +31,9 @@ public class User {
 	@Column(name = "PASSWORD")
 	private String password;
 
+	@Transient
+	private String confirmPassword;
+	
 	@Column(name = "FIRSTNAME")
 	private String firstName;
 
